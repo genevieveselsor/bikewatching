@@ -1,0 +1,117 @@
+body {
+    font: 100%/1.5 system-ui, sans-serif;
+    display: flex;
+    flex-flow: column;
+    max-width: 80em;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 1em;
+  }
+
+html,
+body {
+  margin: 0;
+  padding: 5;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+#map {
+  width: 100%; /* Adjust width to your desired size */
+  height: 100%; /* Adjust height to your desired size */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for effect */
+  border-radius: 8px; /* Optional: rounded corners */
+}
+
+#map svg {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+circle {
+    pointer-events: auto;
+}
+
+.time-filter {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 0.5em 1em;
+  }
+
+.time-filter__label {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+#selected-time,
+#any-time {
+  display: block;
+  font-size: 0.9em;
+  margin-top: 0.25em;
+}
+
+#any-time {
+    color: #666;
+    font-style: italic;
+  }
+
+#time-slider {
+    width: 400px;
+}
+
+#map circle, .legend > div {
+    --color-departures: #692d9f;
+    --color-arrivals: #006618;
+    --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+);
+fill: var(--color);
+}
+
+.legend {
+    display: flex;
+    gap: 1px;        
+    margin-block: 1em; 
+    width: 100%;
+}
+
+.legend > div {
+    flex: 1;               /* equal width */
+    padding: 0.25em 1em;   /* more horizontal padding than vertical */
+    color: white;          /* ensure contrast — adjust if your colors differ */
+    font-size: 0.9em;
+    font-weight: bold;
+  }
+
+.legend > div:nth-child(1) { /* More departures */ 
+  text-align: left; 
+  background: var(--color-departures);
+}
+
+.legend > div:nth-child(2) { /* Balanced */
+  text-align: center;
+  /* Blend halfway between the two colors */
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+);
+  background: var(--color);;
+}
+
+.legend > div:nth-child(3) { /* More arrivals */
+  text-align: right;
+  background: var(--color-arrivals);
+}
